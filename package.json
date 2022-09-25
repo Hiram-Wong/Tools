@@ -22,6 +22,13 @@
       "category": "public.app-category.utilities",
       "icon": "./build/icons/icon.icns"
     },
+    "win": {
+      "icon": "build/icons/icon.ico",
+      "target": "nsis"
+    },
+    "linux": {
+      "icon": "build/icons/"
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
