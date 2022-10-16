@@ -1,7 +1,7 @@
 // electron/main.js
 
 // 控制应用生命周期和创建原生浏览器窗口的模组
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const path = require('path')
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
@@ -15,10 +15,13 @@ function createWindow () {
     minWidth: 790,
     height: 620,
     minHeight: 620,
+    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
