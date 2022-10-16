@@ -1,13 +1,14 @@
 # 工具合集
 
-没有找到合适(free)的对比工具,在兴趣的驱动下,写下此工具，有欣喜，也还有汗水，希望你喜欢与支持此的作品。
+没有找到合适(free)的对比工具,在兴趣的驱动下,写下此工具，希望你喜欢与支持此的作品!
 
 > 采用`vite + vue3 + electron13 + vue-router + pinia + tdesign`
 
 # 截图
 
-![Tool Demo](screenshots/light.png "Tool Light Demo")
-![Tool Demo](screenshots/dark.png "Tool Dark Demo")
+|  Light Mode   | Dark Mode  |
+|  :----:  | :----:  |
+| ![Tool Demo](screenshots/light.png "Tool Light Demo")  | ![Tool Demo](screenshots/dark.png "Tool Dark Demo") |
 
 # 未来
 
