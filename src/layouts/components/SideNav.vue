@@ -1,23 +1,17 @@
 <template>
   <div class="tdesign-starter-sidebar-layout tdesign-starter-sidebar-compact">
-    <t-menu :theme="props.theme" defaultValue="diff" collapsed  class="tdesign-block-column">
+    <t-menu :theme="theme" :value="active" collapsed class="tdesign-block-column">
       <t-menu-item value="logo" disabled style="margin-top: 5px">
         <template #icon>
-          <img width="32" src="@/assets/icon.png" alt="logo">
+          <asset-logo />
         </template>
-        icon
+        Tool
       </t-menu-item>
-      <t-menu-item to="/diff" value="diff">
+      <t-menu-item v-for="(item, index) in list" :key="index" :name="item.path" :value="getPath(active, item)" :to="item.path">
         <template #icon>
-          <t-icon name="relativity" />
+          <t-icon :name="item.icon" />
         </template>
-        对比
-      </t-menu-item>
-      <t-menu-item to="/setting" value="setting">
-        <template #icon>
-          <t-icon name="setting" />
-        </template>
-        设置
+        {{ item.title }}
       </t-menu-item>
     </t-menu>
   </div>
@@ -26,8 +20,43 @@
 <script setup>
 import { computed } from 'vue';
 import { getActive } from '@/router';
-const props = defineProps(['theme']);
+import AssetLogo from '@/assets/icon.svg?component';
+const { navData, theme } = defineProps(['navData','theme']);
 const active = computed(() => getActive());
+const getPath = (active, item) => {
+  if (active.startsWith(item.path)) {
+    return active;
+  }
+  return item.meta?.single ? item.redirect : item.path;
+};
+
+const list = computed(() => {
+  return getMenuList(navData);
+});
+
+const getMenuList = (list, basePath) => {
+  if (!list) {
+    return [];
+  }
+  // 如果meta中有orderNo则按照从小到大排序
+  list.sort((a, b) => {
+    return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
+  });
+  
+  return list
+    .map((item) => {
+      const path = basePath ? `${basePath}/${item.path}` : item.path;
+      return {
+        path,
+        title: item.meta?.title,
+        icon: item.meta?.icon || '',
+        children: getMenuList(item.children, path),
+        meta: item.meta,
+        redirect: item.redirect,
+      };
+    })
+    .filter((item) => item.meta && item.meta.hidden !== true);
+};
 </script>
 
 <style lang="less">
@@ -81,6 +110,7 @@ const active = computed(() => getActive());
   width: 42px;
   height: 42px;
   margin-bottom: 21px;
+  border-radius: @border-radius-10 !important;
 }
 
 .tdesign-block-column {
@@ -88,6 +118,7 @@ const active = computed(() => getActive());
   flex-direction: row;
   grid-row: 40px;
 }
+
 .t-menu {
   width: 80px !important;
   display: flex;

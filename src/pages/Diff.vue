@@ -99,9 +99,9 @@
 	</div>
 </template>
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import _ from 'lodash';
-import {  createPatch } from 'diff';
+import { createPatch } from 'diff';
 import { html, parse } from "diff2html";
 import '@/style/theme/html2diff.less';
 
@@ -115,8 +115,6 @@ const configuration = ref({
 	outputFormat: 'side-by-side' // line-by-line  side-by-side
 });
 const prettyHtml = ref('');
-
-onMounted(() => {});
 
 watch(configuration,() => {
 	compare()

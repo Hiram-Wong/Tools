@@ -2,12 +2,12 @@
 	<div>
 		<t-layout>
 			<t-aside key="side">
-				<LayoutSideNav :theme="settingStore.displayMode"/>
+				<layout-sideNav :theme="settingStore.displayMode" :navData="sideMenu"/>
 			</t-aside>
 			<t-layout class="">
 				<t-content>
 					<t-layout class="tdesign-starter-layout">
-						<LayoutContent />
+						<layout-content/>
 					</t-layout>
 				</t-content>
 			</t-layout>
@@ -16,11 +16,21 @@
 </template>
 
 <script setup>
-import { useSettingStore } from '@/store';
-import LayoutSideNav from './components/SideNav.vue';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useSettingStore, usePermissionStore } from '@/store';
+import LayoutSideNav from './components/SideNav.vue'; //vue组件引入
+// import LayoutSideNav from './components/SideNav.jsx'; //jsx组件引入
 import LayoutContent from './components/Content.vue';
+
 const settingStore = useSettingStore();
-// console.log(settingStore.displayMode)
+const permissionStore = usePermissionStore();
+const { routers: menuRouters } = storeToRefs(permissionStore);
+
+const sideMenu = computed(() => {
+	let newMenuRouters = menuRouters.value;
+	return newMenuRouters;
+});
 </script>
 
 <style lang="less">

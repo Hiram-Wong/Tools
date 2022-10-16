@@ -3,7 +3,6 @@ import router, { allRoutes } from '@/router';
 import { store } from '@/store';
 
 function filterPermissionsRouters(routes, roles) {
-  console.log(2)
   const res = [];
   const removeRoutes = [];
   routes.forEach((route) => {

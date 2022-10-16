@@ -29,7 +29,6 @@ const STYLE_CONFIG= {
   mode,
 };
 const formData = ref({ ...STYLE_CONFIG });
-console.log(formData)
 
 const MODE_OPTIONS = [
   { type: 'light', text: '明亮' },
