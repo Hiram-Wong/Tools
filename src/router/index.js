@@ -5,25 +5,48 @@ import Layout from '@/layouts/AppLayout.vue';
 
 // 存放固定的路由
 const defaultRouterList = [
+  {
+    path: '/',
+    redirect: '/diff/index',
+    component: () => import('@/layouts/blank.vue'),
+  },
 	{
-		path: '/',
-    redirect: '/diff',
+		path: '/diff',
+    name: 'name',
+    redirect: '/diff/index',
 		component: Layout,
+    meta: { title: '对比', icon: 'relativity' },
 		children: [{
-			path: "/diff",
-			name: 'diff',
+			path: "index",
+			name: 'DiffIndex',
 			component: () => import('@/pages/Diff.vue'),
-			meta: { title: '对比' }
+			meta: { title: '对比', icon: 'relativity' }
 		}]
 	},
 	{
 		path: '/setting',
+    name: 'setting',
 		component: Layout,
+    redirect: '/setting/index',
+    meta: { title: '设置', icon: 'setting' },
 		children: [{
-			path: "/setting",
-			name: 'setting',
+			path: "index",
+			name: 'SettingIndex',
 			component: () => import('@/pages/Setting.vue'),
-			meta: { title: '设置' }
+			meta: { title: '设置', icon: 'setting' }
+		}]
+	},
+	{
+		path: '/ceshi',
+    name: 'ceshi',
+		component: Layout,
+    redirect: '/ceshi/index',
+    meta: { title: '测试', icon: 'setting', hidden: true },
+		children: [{
+			path: "index",
+			name: 'CeshiIndex',
+			component: () => import('@/pages/Setting.vue'),
+			meta: { title: '测试', icon: 'setting' }
 		}]
 	}
 ];
